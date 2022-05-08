@@ -2,6 +2,9 @@
 """Show a text-mode spectrogram using live microphone data."""
 
 #Importe todas as bibliotecas
+import numpy as np
+import sounddevice as sd
+from scipy import signal
 
 
 #funcao para transformas intensidade acustica em dB
