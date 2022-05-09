@@ -80,6 +80,7 @@ class Decode:
         #voce deve tambem evitar que dois picos proximos sejam identificados, pois pequenas variacoes na
         #frequencia do sinal podem gerar mais de um pico, e na verdade tempos apenas 1.
         index = peakutils.indexes(yf, thres=0.2, min_dist=10)
+        print(xf[index])
         for pico in xf[index]:
             for freq1 in self.freqs[0]:
                 if freq1-5 < pico < freq1 + 5:
@@ -146,6 +147,9 @@ class Decode:
             for freq2 in self.freqs[1]:
                 if freq2-5 < pico < freq2 + 5:
                     self.freqcaptada2 = freq2 
+        
+        if self.freqcaptada1 == 0 and self.freqcaptada2 == 0:
+            print("Repita gravação, erro na captação")
         
         #encontre na tabela duas frequencias proximas às frequencias de pico encontradas e descubra qual foi a tecla
         #print a tecla.
