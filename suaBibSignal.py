@@ -32,6 +32,7 @@ class signalMeu:
         plt.figure()
         plt.title(title)
         plt.plot(x,s)
+        plt.ylim([-0.0005,0.0005])
         plt.xlim([2,2.02])
         plt.show()
 
