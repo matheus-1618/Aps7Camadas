@@ -7,14 +7,15 @@ import sounddevice as sd
 import sys
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
+import soundfile as sf
 
 
 class Encode:
     def __init__(self) -> None:
         self.signal = signalMeu()
         self.fs = 44100
-        self.A = 2 
-        self.T = 5
+        self.A = 1 
+        self.T = 10
         self.t = np.linspace(-self.T/2,self.T/2,self.T*self.fs)
         print("--->Inicializando encoder\n")
         self.freqs = [[1206,1339,1477,1633],[697,770,852,941]]
@@ -80,20 +81,19 @@ class Encode:
         self.x1,self.s1 = self.signal.generateSin(self.feq1,self.A,self.T,self.fs)
         self.x2,self.s2 = self.signal.generateSin(self.feq2,self.A,self.T,self.fs)
         self.s = self.s1 + self.s2
-        
-     
-        sd.play(self.s, self.fs)
-        sd.wait()
-
         self.plotSin(1)
         self.plotSin(2)
         self.plotSin(0)
+        sd.play(self.s, self.fs)
+        sd.wait()
 
         X,Y = self.signal.calcFFT(self.s,self.fs)
         Ymax = sorted(Y)[-2:]
         pico1,pico2 = list(Y).index(Ymax[0]),list(Y).index(Ymax[1])
         print(f'Picos são:\nPico 1: {X[pico1]:.1f}\nPico 2: {X[pico2]:.1f}')
         self.signal.plotFFT(self.s,self.fs)
+        filename = 'output.wav'
+        sf.write(filename, self.s, self.fs)
 
     
 

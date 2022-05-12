@@ -32,7 +32,7 @@ class signalMeu:
         plt.figure()
         plt.title(title)
         plt.plot(x,s)
-        plt.xlim([2,2.02])
+        plt.ylim([np.min(s),np.max(s)])
         plt.show()
 
     def plotFFT(self, signal, fs):
